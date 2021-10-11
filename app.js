@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 const { ApolloServer, gql } = require("apollo-server-express");
 const { composeMongoose } = require("graphql-compose-mongoose");
 const { schemaComposer } = require("graphql-compose");
@@ -9,9 +9,13 @@ const app = require("express")();
 const schema = require("./models");
 
 connect_db().then(async () => {
-  const server = new ApolloServer({ schema });
+  const server = new ApolloServer({ schema, introspection: true });
   await server.start();
   server.applyMiddleware({ app });
   const httpServer = http.createServer(app);
-  httpServer.listen(process.env.PORT, () => console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`));
+  httpServer.listen(process.env.PORT, () =>
+    console.log(
+      `🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`
+    )
+  );
 });
