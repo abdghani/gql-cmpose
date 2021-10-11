@@ -13,5 +13,5 @@ connect_db().then(async () => {
   await server.start();
   server.applyMiddleware({ app });
   const httpServer = http.createServer(app);
-  httpServer.listen(process.env.PORT, () => console.log(`Listening at port ${process.env.PORT}`));
+  httpServer.listen(process.env.PORT, () => console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`));
 });
